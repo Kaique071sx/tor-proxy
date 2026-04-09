@@ -6,11 +6,12 @@ RUN echo "SOCKSPort 9050" > /etc/tor/torrc \
     && echo "ControlPort 9051" >> /etc/tor/torrc \
     && echo "CookieAuthentication 0" >> /etc/tor/torrc
 
+WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY tor.py .
+COPY app.py .
 
-EXPOSE 9050 9051
+EXPOSE 5000
 
-CMD tor & python tor.py 5
+CMD tor & python app.py
